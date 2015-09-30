@@ -10,6 +10,13 @@ Beautiful, reactive, responsive charts for Angular.JS using [Chart.js](http://ww
 
 [Demo](http://jtblin.github.io/angular-chart.js/)
 
+
+# Experimental fork
+
+This fork allows bars and lines to be overlayed in a single chart. See [leighquince/Chart.js](//github.com/leighquince/Chart.js) for more information.
+
+
+
 # Installation
 
 ### bower

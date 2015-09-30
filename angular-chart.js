@@ -35,13 +35,14 @@
   return angular.module('chart.js', [])
     .provider('ChartJs', ChartJsProvider)
     .factory('ChartJsFactory', ['ChartJs', '$timeout', ChartJsFactory])
-    .directive('chartBase', function (ChartJsFactory) { return new ChartJsFactory(); })
-    .directive('chartLine', function (ChartJsFactory) { return new ChartJsFactory('Line'); })
-    .directive('chartBar', function (ChartJsFactory) { return new ChartJsFactory('Bar'); })
-    .directive('chartRadar', function (ChartJsFactory) { return new ChartJsFactory('Radar'); })
-    .directive('chartDoughnut', function (ChartJsFactory) { return new ChartJsFactory('Doughnut'); })
-    .directive('chartPie', function (ChartJsFactory) { return new ChartJsFactory('Pie'); })
-    .directive('chartPolarArea', function (ChartJsFactory) { return new ChartJsFactory('PolarArea'); });
+    .directive('chartBase', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory(); }])
+    .directive('chartOverlay', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('Overlay'); }])
+    .directive('chartLine', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('Line'); }])
+    .directive('chartBar', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('Bar'); }])
+    .directive('chartRadar', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('Radar'); }])
+    .directive('chartDoughnut', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('Doughnut'); }])
+    .directive('chartPie', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('Pie'); }])
+    .directive('chartPolarArea', ['ChartJsFactory', function (ChartJsFactory) { return new ChartJsFactory('PolarArea'); }]);
 
   /**
    * Wrapper for chart.js
@@ -187,7 +188,7 @@
             scope.colours = getColours(type, scope);
             var cvs = elem[0], ctx = cvs.getContext('2d');
             var data = Array.isArray(scope.data[0]) ?
-              getDataSets(scope.labels, scope.data, scope.series || [], scope.colours) :
+              getDataSets(scope.labels, scope.data, scope.series || [], scope.colours, scope.chartType || []) :
               getData(scope.labels, scope.data, scope.colours);
             var options = angular.extend({}, ChartJs.getOptions(type), scope.options);
             chart = new ChartJs.Chart(ctx)[type](data, options);
@@ -266,7 +267,7 @@
 
     function getColour (colour) {
       return {
-        fillColor: rgba(colour, 0.2),
+        fillColor: rgba(colour, 0.8),
         strokeColor: rgba(colour, 1),
         pointColor: rgba(colour, 1),
         pointStrokeColor: '#fff',
@@ -298,11 +299,12 @@
       return [r, g, b];
     }
 
-    function getDataSets (labels, data, series, colours) {
+    function getDataSets (labels, data, series, colours, types) {
       return {
         labels: labels,
         datasets: data.map(function (item, i) {
           return angular.extend({}, colours[i], {
+            type: types[i],
             label: series[i],
             data: item
           });
