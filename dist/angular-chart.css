@@ -1,5 +1,6 @@
 .chart-legend,
 .bar-legend,
+.overlay-legend,
 .line-legend,
 .pie-legend,
 .radar-legend,
@@ -18,6 +19,7 @@
 }
 .chart-legend li,
 .bar-legend li,
+.overlay-legend li,
 .line-legend li,
 .pie-legend li,
 .radar-legend li,
@@ -34,6 +36,7 @@
 }
 .chart-legend li span,
 .bar-legend li span,
+.overlay-legend li span,
 .line-legend li span,
 .pie-legend li span,
 .radar-legend li span,

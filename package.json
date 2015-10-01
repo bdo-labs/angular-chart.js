@@ -51,10 +51,8 @@
     "testatic": "^0.1.0",
     "tmp-sync": "^1.1.0",
     "webpack": "^1.12.0",
-    "webshot": "^0.15.3"
-  },
-  "dependencies": {
+    "webshot": "^0.15.3",
     "angular": "^1.4.5",
-    "chart.js": "leighquince/Chart.js"
+    "chart.js": "bdo-labs/Chart.js"
   }
 }
